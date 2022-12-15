@@ -1,5 +1,6 @@
 var name = "Mehemt"; // global scope
-const address = "İstanbul"; // const sabit, değiştirlemez.
+const address = "İstanbul"; // const sabit, değiştirlemez. const => Değer olarak sabit olarak tanımlanan ve kod blog boyunca değişmeyen ve değiştirilemeyen değişkenler.
+
 
 function printFunc() {
   var name = "Gizem";
