@@ -101,9 +101,9 @@ const mathStudents = [
   },
 ];
 
-const filterStudents = mathStudents.filter((filterStudent) => 
-  filterStudent.enrollmentYear < 2020
-);
+const filterStudents = mathStudents.filter((filterStudent) => {
+  return filterStudent.enrollmentYear < 2020;
+});
 
 const mapStudents = filterStudents.map((mapStudent) => {
   if (mapStudent.score > 40) {
@@ -115,4 +115,4 @@ const mapStudents = filterStudents.map((mapStudent) => {
 
 const result2 = mapStudents;
 
-console.log(result2); // [ 'Jane gecti.', 'John gecti.', 'Linda kaldi.' ]
+console.log(result2); //[ 'Jane gecti.', 'John gecti.', 'Linda kaldi.' ]
