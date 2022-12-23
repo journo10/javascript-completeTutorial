@@ -10,10 +10,11 @@ let isEditTask = false;
 
 const task_input = document.querySelector("#txtTaskName");
 const btnClear = document.querySelector("#btnClear");
+const filters = document.querySelectorAll(".filters span");
 
-displayTasks();
+displayTasks("all");
 
-function displayTasks() {
+function displayTasks(filter) {
   let ul = document.getElementById("task-list");
   ul.innerHTML = "";
 
@@ -24,36 +25,46 @@ function displayTasks() {
     for (let item of itemList) {
       let completed = item.status == "completed" ? "checked" : "";
 
-      let li = `
-                          <li class="task list-group-item">
-                              <div class="form-check">
-                                  <input type="checkbox" id="${item.id}" onclick="updateStatus(this)" class="form-check-input" ${completed}>
-                                  <label for="${item.id}" class="form-check-label ${completed}">${item.itemName}</label>
-                              </div>
-                              <div class="dropdown">
-                                  <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                      <i class="fa-solid fa-ellipsis"></i>
-                                  </button>
-                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a onclick="deleteTask(${item.id})" class="dropdown-item" href="#"><i class="fa-solid fa-trash-can"></i> Sil</a></li>
-                                      <li><a onclick='editTask(${item.id}, "${item.itemName}")'  class="dropdown-item" href="#"><i class="fa-solid fa-pen"></i> Düzenle</a></li>
-                                  </ul>
-                              </div>
-                          </li>
-                      `;
-
-      ul.insertAdjacentHTML("beforeend", li);
+      if (filter == item.status || filter == "all") {
+        let li = `
+        <li class="task list-group-item">
+            <div class="form-check">
+                <input type="checkbox" id="${item.id}" onclick="updateStatus(this)" class="form-check-input" ${completed}>
+                <label for="${item.id}" class="form-check-label ${completed}">${item.itemName}</label>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a onclick="deleteTask(${item.id})" class="dropdown-item" href="#"><i class="fa-solid fa-trash-can"></i> Sil</a></li>
+                    <li><a onclick='editTask(${item.id}, "${item.itemName}")'  class="dropdown-item" href="#"><i class="fa-solid fa-pen"></i> Düzenle</a></li>
+                </ul>
+            </div>
+        </li>
+    `;
+        ul.insertAdjacentHTML("beforeend", li);
+      }
     }
   }
 }
 
 document.querySelector("#btnAddNewTask").addEventListener("click", newTask);
 
+//filters
+for (let span of filters) {
+  span.addEventListener("click", function () {
+    document.querySelector("span.active").classList.remove("active");
+    span.classList.add("active");
+    displayTasks(span.id);
+  });
+}
+
 //Add
 function newTask(e) {
   e.preventDefault();
 
-  if (task_input.value === "") {
+  if (task_input.value == "") {
     alert("item giriniz...");
   } else {
     if (!isEditTask) {
@@ -70,7 +81,7 @@ function newTask(e) {
     }
 
     task_input.value = ""; //input içinin temizlenmesi.
-    displayTasks();
+    displayTasks(document.querySelector("span.active").id);
   }
 }
 
@@ -94,7 +105,7 @@ function deleteTask(id) {
   deletedId = itemList.findIndex((item) => item.id == id);
 
   itemList.splice(deletedId, 1);
-  displayTasks();
+  displayTasks(document.querySelector("span.active").id);
 }
 
 //güncelleme
@@ -135,5 +146,5 @@ function updateStatus(selectedTask) {
     }
   }
 
-  console.log(itemList);
+  //   console.log(itemList);
 }

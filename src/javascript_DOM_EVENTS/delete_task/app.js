@@ -67,10 +67,7 @@ function deleteTask(id) {
   // });
 
   // arrow function, 3. Yol
-  //   deletedId = itemList.findIndex((item) => item.id == id);
-
-  // 4. Yol
-  deletedId = itemList.filter((item) => item.id == id);
+  deletedId = itemList.findIndex((item) => item.id == id);
 
   itemList.splice(deletedId, 1);
   displayTasks();
