@@ -1,0 +1,9 @@
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
