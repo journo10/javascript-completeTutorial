@@ -1,0 +1,13 @@
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.task label.checked {
+    text-decoration: line-through;
+}
