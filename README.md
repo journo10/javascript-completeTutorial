@@ -1,3 +1,3 @@
 ### Javascript Complete Tutorial 
 
-#### javascript konu tekrarı
+#### javascript konu tekrarı devam edilcek 
